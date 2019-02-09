@@ -4,9 +4,12 @@ export default class Notes extends Component {
   render() {
     return (
       <View key={this.props.keyval} style={styles.oneNote}>
-        <Text style={styles.noteText}>{this.props.val.date}</Text>
-        <Text style={styles.noteText}>{this.props.val.note}</Text>
-        <TouchableOpacity onPress={this.props.delete} style={styles.delete}>
+        <Text style={styles.noteText}>{this.props.keyval.date}</Text>
+        <Text style={styles.noteText}>{this.props.keyval.note}</Text>
+        <TouchableOpacity
+          onPress={() => this.props.onDelete(this.props.keyval)}
+          style={styles.delete}
+        >
           <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
       </View>
@@ -16,7 +19,6 @@ export default class Notes extends Component {
 
 const styles = StyleSheet.create({
   oneNote: {
-    position: "absolute",
     padding: 20,
     paddingRight: 100,
     borderBottomWidth: 2,

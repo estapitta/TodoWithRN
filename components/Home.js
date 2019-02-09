@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  SafeAreaView,
   ScrollView,
   TouchableOpacity,
   TextInput
@@ -20,15 +21,14 @@ export default class Home extends Component {
   }
   render() {
     let notes = this.state.arrOfNotes.map((val, key) => {
-      return <Notes key={key} keyval={val} />;
+      return <Notes key={key} keyval={val} onDelete={this.deleteNote} />;
     });
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.text}>Noter</Text>
         </View>
-        <ScrollView style={styles.scrollContainer} />
-        {notes}
+        <ScrollView style={styles.scrollContainer}>{notes}</ScrollView>
         <View style={styles.footer}>
           <TextInput
             style={styles.textInput}
@@ -48,24 +48,31 @@ export default class Home extends Component {
         >
           <Text style={styles.addButtonText}>Add</Text>
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     );
   }
   addNote() {
-    if (this.state.arrOfNotes) {
+    if (this.state.notes) {
       let d = new Date();
-      this.state.arrOfNotes.push({
+      let noteArray = this.state.arrOfNotes;
+      noteArray.push({
         date: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate(),
         note: this.state.notes
       });
       this.setState({
-        arrOfNotes: this.state.arrOfNotes
-      });
-      this.setState({
+        arrOfNotes: noteArray,
         notes: ""
       });
     }
   }
+  deleteNote = deletedNote => {
+    let updatedArray = this.state.arrOfNotes.filter(note => {
+      return deletedNote.note !== note.note;
+    });
+    this.setState({
+      arrOfNotes: updatedArray
+    });
+  };
 }
 
 const styles = StyleSheet.create({
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
     marginBottom: 100
   },
   footer: {
-    position: "absolute",
+    // position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
@@ -108,7 +115,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 11,
     right: 20,
-    bottom: 80,
+    bottom: 100,
     backgroundColor: "#E19E63",
     width: 90,
     height: 90,

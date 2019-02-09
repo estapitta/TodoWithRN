@@ -1371,7 +1371,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   _reactNative.AppRegistry.registerComponent(_app.name, function () {
     return _App.default;
   });
-},0,[1,2,557,560],"index.js");
+},0,[1,2,557,561],"index.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
@@ -88087,7 +88087,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var _default2 = App;
   exports.default = _default2;
-},557,[1,558,19,20,34,37,40,52,196,2,565],"App.js");
+},557,[1,558,19,20,34,37,40,52,196,2,559],"App.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   function _interopRequireWildcard(obj) {
     if (obj && obj.__esModule) {
@@ -88116,12 +88116,6 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   module.exports = _interopRequireWildcard;
 },558,[],"node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
-__d(function(global, require, _aUnused, _bUnused, module, exports, _cUnused) {
-  module.exports = {
-  "name": "ReactNat",
-  "displayName": "ReactNat"
-};
-},560,[],"app.json");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
 
@@ -88150,7 +88144,9 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var _Notes = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[10], "./Notes"));
 
-  var _jsxFileName = "/Users/esta/Desktop/ReactNat/components/Home.js";
+  var _temp,
+      _jsxFileName = "/Users/esta/Desktop/ReactNat/node_modules/react-native/components/Home.js";
+
   var _components = {
     Home: {
       displayName: "Home"
@@ -88158,7 +88154,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   };
 
   var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index.default)({
-    filename: "/Users/esta/Desktop/ReactNat/components/Home.js",
+    filename: "/Users/esta/Desktop/ReactNat/node_modules/react-native/components/Home.js",
     components: _components,
     locals: [module],
     imports: [_react.default]
@@ -88170,7 +88166,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     };
   }
 
-  var Home = _wrapComponent("Home")(function (_Component) {
+  var Home = _wrapComponent("Home")((_temp = function (_Component) {
     (0, _inherits2.default)(Home, _Component);
 
     function Home(props) {
@@ -88178,6 +88174,17 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
       (0, _classCallCheck2.default)(this, Home);
       _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Home).call(this, props));
+
+      _this.deleteNote = function (deletedNote) {
+        var updatedArray = _this.state.arrOfNotes.filter(function (note) {
+          return deletedNote.note !== note.note;
+        });
+
+        _this.setState({
+          arrOfNotes: updatedArray
+        });
+      };
+
       _this.state = {
         arrOfNotes: [],
         notes: ""
@@ -88194,13 +88201,14 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           return _react.default.createElement(_Notes.default, {
             key: key,
             keyval: val,
+            onDelete: _this2.deleteNote,
             __source: {
               fileName: _jsxFileName,
               lineNumber: 24
             }
           });
         });
-        return _react.default.createElement(_reactNative.View, {
+        return _react.default.createElement(_reactNative.SafeAreaView, {
           style: styles.container,
           __source: {
             fileName: _jsxFileName,
@@ -88224,11 +88232,11 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
             fileName: _jsxFileName,
             lineNumber: 31
           }
-        }), notes, _react.default.createElement(_reactNative.View, {
+        }, notes), _react.default.createElement(_reactNative.View, {
           style: styles.footer,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 33
+            lineNumber: 32
           }
         }, _react.default.createElement(_reactNative.TextInput, {
           style: styles.textInput,
@@ -88242,43 +88250,42 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           value: this.state.notes,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 34
+            lineNumber: 33
           }
         })), _react.default.createElement(_reactNative.TouchableOpacity, {
           style: styles.addButton,
           onPress: this.addNote.bind(this),
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 46
+            lineNumber: 45
           }
         }, _react.default.createElement(_reactNative.Text, {
           style: styles.addButtonText,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 50
+            lineNumber: 49
           }
         }, "Add")));
       }
     }, {
       key: "addNote",
       value: function addNote() {
-        if (this.state.arrOfNotes) {
+        if (this.state.notes) {
           var d = new Date();
-          this.state.arrOfNotes.push({
+          var noteArray = this.state.arrOfNotes;
+          noteArray.push({
             date: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate(),
             note: this.state.notes
           });
           this.setState({
-            arrOfNotes: this.state.arrOfNotes
-          });
-          this.setState({
+            arrOfNotes: noteArray,
             notes: ""
           });
         }
       }
     }]);
     return Home;
-  }(_react.Component));
+  }(_react.Component), _temp));
 
   var _default2 = Home;
   exports.default = _default2;
@@ -88305,7 +88312,6 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       marginBottom: 100
     },
     footer: {
-      position: "absolute",
       bottom: 0,
       left: 0,
       right: 0,
@@ -88323,7 +88329,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       position: "absolute",
       zIndex: 11,
       right: 20,
-      bottom: 80,
+      bottom: 100,
       backgroundColor: "#E19E63",
       width: 90,
       height: 90,
@@ -88337,7 +88343,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       fontSize: 24
     }
   });
-},565,[1,558,19,20,34,37,40,52,196,2,566],"components/Home.js");
+},559,[1,558,19,20,34,37,40,52,196,2,560],"components/Home.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
 
@@ -88364,7 +88370,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var _reactNative = _$$_REQUIRE(_dependencyMap[9], "react-native");
 
-  var _jsxFileName = "/Users/esta/Desktop/ReactNat/components/Notes.js";
+  var _jsxFileName = "/Users/esta/Desktop/ReactNat/node_modules/react-native/components/Notes.js";
   var _components = {
     Notes: {
       displayName: "Notes"
@@ -88372,7 +88378,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   };
 
   var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index.default)({
-    filename: "/Users/esta/Desktop/ReactNat/components/Notes.js",
+    filename: "/Users/esta/Desktop/ReactNat/node_modules/react-native/components/Notes.js",
     components: _components,
     locals: [module],
     imports: [_react.default]
@@ -88395,6 +88401,8 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     (0, _createClass2.default)(Notes, [{
       key: "render",
       value: function render() {
+        var _this = this;
+
         return _react.default.createElement(_reactNative.View, {
           key: this.props.keyval,
           style: styles.oneNote,
@@ -88408,14 +88416,16 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
             fileName: _jsxFileName,
             lineNumber: 7
           }
-        }, this.props.val.date), _react.default.createElement(_reactNative.Text, {
+        }, this.props.keyval.date), _react.default.createElement(_reactNative.Text, {
           style: styles.noteText,
           __source: {
             fileName: _jsxFileName,
             lineNumber: 8
           }
-        }, this.props.val.note), _react.default.createElement(_reactNative.TouchableOpacity, {
-          onPress: this.props.delete,
+        }, this.props.keyval.note), _react.default.createElement(_reactNative.TouchableOpacity, {
+          onPress: function onPress() {
+            return _this.props.onDelete(_this.props.keyval);
+          },
           style: styles.delete,
           __source: {
             fileName: _jsxFileName,
@@ -88425,7 +88435,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           style: styles.deleteText,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 10
+            lineNumber: 13
           }
         }, "Delete")));
       }
@@ -88438,7 +88448,6 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var styles = _reactNative.StyleSheet.create({
     oneNote: {
-      position: "absolute",
       padding: 20,
       paddingRight: 100,
       borderBottomWidth: 2,
@@ -88463,7 +88472,13 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       color: "white"
     }
   });
-},566,[1,558,19,20,34,37,40,52,196,2],"components/Notes.js");
+},560,[1,558,19,20,34,37,40,52,196,2],"components/Notes.js");
+__d(function(global, require, _aUnused, _bUnused, module, exports, _cUnused) {
+  module.exports = {
+  "name": "ReactNat",
+  "displayName": "ReactNat"
+};
+},561,[],"app.json");
 __r(88);
 __r(0);
 //# sourceMappingURL=index.map
